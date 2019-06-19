@@ -1,0 +1,73 @@
+{
+  "name": "sen_electron",
+  "version": "1.0.0",
+  "description": "A test Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "build": "electron-builder"
+  },
+  "build": {
+		"productName": "sen_electron",
+		"appId": "org.sen.electron",
+		"directories": {
+			"output": "build"
+		},
+		"publish": [
+			{
+				"provider": "generic",
+				"url": ""
+			}
+		],
+		"files": [
+			"**/*"
+		],
+		"dmg": {
+			"contents": [
+				{
+					"x": 410,
+					"y": 150,
+					"type": "link",
+					"path": "/Applications"
+				}, {
+					"x": 130,
+					"y": 150,
+					"type": "file"
+				}
+			]
+		},
+		"mac": {
+			"icon": "",
+			"artifactName": "${productName}_setup_${version}.${ext}"
+		},
+		"win": {
+			"icon": "electron.jpg",
+			"artifactName": "${productName}_setup_${version}.${ext}",
+			"target": [
+				"nsis",
+				"zip" 
+			]
+			
+		},
+		"nsis": { 
+			"oneClick": false,
+			"allowToChangeInstallationDirectory": true,
+			"perMachine": true
+		},
+		"linux": {
+			"icon": "",
+			"artifactName": "${productName}_setup_${version}.${ext}"
+		}
+	},
+  "repository": "",
+  "keywords": [
+    "Electron",
+    "demo"
+  ],
+  "author": "GitHub",
+  "devDependencies": {
+    "electron": "^5.0.2",
+    "electron-builder": "^20.43.0"
+  }
+}

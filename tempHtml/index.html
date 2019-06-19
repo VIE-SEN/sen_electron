@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>List Page</title>
+</head>
+<body>
+    <div id="divWrap">打开链接</div>
+</body>
+</html>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+const { ipcRenderer } = require('electron')
+const { BrowserWindow } = require('electron').remote
+var divWrap = document.getElementById("divWrap")
+divWrap.onclick = function () {
+    console.log("点击发送参数嘿");
+    ipcRenderer.send('openNewWindow', '111.xxx.222.333.xxx')
+}
+ipcRenderer.on('openWindowDealed', (event, arg) => {
+  console.log(arg,212121) 
+})
+const { app } = require('electron').remote
+console.log(app.getLocale())
+</script>

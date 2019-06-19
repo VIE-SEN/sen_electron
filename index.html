@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    之前的页面在 tempHtml 文件夹下
+    <br>
+    <label for="newUrl">新地址</label>
+    <input type="text" name="newUrl" id="newUrlText"> <button onclick="storeNewUrl()">确定</button>
+</body>
+</html>
+<script>
+const fs = require("fs");
+const fileDirection = './settings/'
+const file = fs.open(fileDirection + "setting.json",'r',(err, fd) => {
+    if(err){
+        console.log(err)
+        throw err;
+    }
+    dealFile();
+})
+function dealFile(){
+    fs.readFile(fileDirection + "setting.json", 'utf8', (err, data) => {
+        if (err) throw err;
+        var settings = JSON.parse(data)
+        console.log(settings.serverUrl);
+    });
+}
+function storeNewUrl(){
+    var inputText = document.getElementById("newUrlText");
+    console.log(inputText.value);
+    if(inputText.value.trim()){
+        var data = JSON.stringify({"serverUrl":inputText.value})
+        fs.writeFile(fileDirection + "newSetting.json", data,'utf8', (err) => {
+            if (err) throw err;
+            console.log('文件已被保存');
+        });
+    }
+}
+</script>
