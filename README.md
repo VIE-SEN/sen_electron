@@ -1,3 +1,4 @@
+这个demo是在官方的基础上面进行更改的,增加了build的一些配置
 # electron-quick-start
 
 **Clone and run for a quick way to see Electron in action.**
