@@ -1,7 +1,7 @@
 {
-	"name": "sen_electron",
+	"name": "SFY-PACS",
 	"version": "1.0.0",
-	"description": "A test Electron application",
+	"description": "A SFY_Electron Desktop Frame",
 	"main": "main.js",
 	"scripts": {
 		"dev": "electron .",
@@ -9,8 +9,8 @@
 		"build": "electron-builder"
 	},
 	"build": {
-		"productName": "sen_electron",
-		"appId": "org.sen.electron",
+		"productName": "sfypacs",
+		"appId": "com.shenfeiyun.pacs",
 		"directories": {
 			"output": "build"
 		},
@@ -24,6 +24,7 @@
 			"**/*"
 		],
 		"dmg": {
+			"title": "shenfeiyun",
 			"contents": [
 				{
 					"x": 410,
@@ -39,35 +40,50 @@
 			]
 		},
 		"mac": {
-			"icon": "",
-			"artifactName": "${productName}_setup_${version}.${ext}"
+			"target": [
+				"dmg",
+				"zip"
+			],
+			"icon": ""
 		},
 		"win": {
-			"icon": "electron.jpg",
+			"icon": "shenzhou.png",
 			"artifactName": "${productName}_setup_${version}.${ext}",
 			"target": [
-				"nsis",
-				"zip"
+				"nsis"
 			]
 		},
 		"nsis": {
 			"oneClick": false,
 			"allowToChangeInstallationDirectory": true,
-			"perMachine": true
+			"perMachine": true,
+			"menuCategory": true,
+			"allowElevation": false
 		},
 		"linux": {
 			"icon": "",
-			"artifactName": "${productName}_setup_${version}.${ext}"
+			"artifactName": "${productName}_setup_${version}.${ext}",
+			"target": [
+				"AppImage",
+				"deb",
+				"rpm"
+			]
 		}
 	},
 	"repository": "",
 	"keywords": [
 		"Electron",
-		"demo"
+		"sfy"
 	],
-	"author": "GitHub",
+	"author": "SFY",
+	"license": "CC0-1.0",
 	"devDependencies": {
-		"electron": "^5.0.2",
-		"electron-builder": "^20.43.0"
+		"@babel/core": "^7.5.5",
+		"@babel/register": "^7.5.5",
+		"electron": "^6.0.1",
+		"electron-builder": "^21.2.0"
+	},
+	"dependencies": {
+		"lowdb": "^1.0.0"
 	}
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <h1>Hello World!111111111</h1>
+    We are using Node.js <span id="node-version"></span>,
+    Chromium <span id="chrome-version"></span>,
+    and Electron <span id="electron-version"></span>.
+		<button onclick="test()">点击</button>
+		<button onclick="test1()">升级</button>
+		
+    <!-- You can also require other files to run in this process -->
+    <script src="./renderer.js"></script>
+  </body>
+</html>
+
+<script type="text/javascript">
+	const { ipcRenderer } = require('electron');
+	function test(){
+		console.log(191919)
+		ipcRenderer.send('testUpdate');
+	}
+	ipcRenderer.on('message',(event,data) => {
+		console.log(data,252525)
+	});
+	ipcRenderer.on('downloadProgress',(event,data) => {
+		console.log(data,"downloadProgress")
+	});
+	ipcRenderer.on('isUpdateNow',(event,data) => {
+		console.log(data,"isUpdateNow")
+	});
+	function test1(){
+		console.log(363636)
+		ipcRenderer.send('isUpdateNow');
+	}
+</script>

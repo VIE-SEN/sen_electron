@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<script>
+	const { ipcRenderer } = require('electron')
+	const low = require('lowdb')
+	const FileSync = require('lowdb/adapters/FileSync')
+	
+	const adapter = new FileSync('setting.json')
+	const db = low(adapter)
+	let serverUrl = db.get("serverUrl").value()
+	if(!serverUrl){
+		//打开配置页面
+		ipcRenderer.send('loadPreferencePage', '初始化配置页面')
+	}else{
+		//打开页面
+		console.log(serverUrl)
+		ipcRenderer.send('loadPage', serverUrl)
+	}
+</script>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>打印</title>
+	</head>
+	<body>
+		<div id="printPage">aaa</div>
+	</body>
+</html>
+<script src="index.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	const { ipcRenderer } = require('electron')
+	let printPage = document.getElementById("printPage");
+	ipcRenderer.on('print-content', (event, htmlInfo) => {
+	  document.getElementById('printPage').innerHTML = htmlInfo;
+	  ipcRenderer.send("print-prepared")
+	})
+</script>

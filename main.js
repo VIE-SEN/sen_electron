@@ -24,17 +24,18 @@ ipcMain.on("openNewWindow",(event,args)=>{
     y:0,
     show:false,
     icon:path.join(__dirname, "ico/dicom.ico"),
-    autoHideMenuBar:true
+    autoHideMenuBar:false
   })
   openedWindow.on('closed', function () {
+  	console.log("window closed")
     openedWindow = null
   })
-  for (let i = 0; i < screenNums;i++) {
-    console.log(allScreens[i].bounds, 16)
-    if(mainWindowPosition.x > allScreens[i].bounds.x 
-      && mainWindowPosition.x < allScreens[i].bounds.x + allScreens[i].bounds.width
-      ){
-        if(screenNums){
+  if(screenNums > 1){
+  	for (let i = 0; i < screenNums;i++) {
+	    console.log(allScreens[i].bounds, 16)
+	    if(mainWindowPosition.x > allScreens[i].bounds.x 
+	      && mainWindowPosition.x < allScreens[i].bounds.x + allScreens[i].bounds.width
+	     ){
           //多个屏幕
           if(i){
             if(i == screenNums - 1){
@@ -50,17 +51,23 @@ ipcMain.on("openNewWindow",(event,args)=>{
             openedWindow.setSize(allScreens[1].bounds.width,allScreens[1].bounds.height)
             openedWindow.setPosition(allScreens[1].bounds.x,0)
           }
-        }else{
-          //单个屏幕
-          openedWindow.setSize(allScreens[0].bounds.width,allScreens[0].bounds.height)
-          openedWindow.setPosition(0,0)
-        }
-        openedWindow.show()
-        //openedWindow.loadFile('dicomViewer.html',{search:"?studyUID="+args})
-        openedWindow.loadURL('http://127.0.0.1:7788' + args)
-        break
-      }
-  }
+	        openedWindow.show()
+	        openedWindow.maximize()
+	        //openedWindow.loadFile('dicomViewer.html',{search:"?studyUID="+args})
+	        openedWindow.loadURL('index.html/?' + args)
+	        break
+	      }
+	  }
+  }else{
+    //单个屏幕
+    openedWindow.setSize(allScreens[0].workArea.width,allScreens[0].workArea.height)
+    openedWindow.setPosition(0,0)
+	  openedWindow.show()
+	  openedWindow.maximize()
+	  //openedWindow.loadFile('dicomViewer.html',{search:"?studyUID="+args})
+	  openedWindow.loadURL('http://127.0.0.1:7788' + args)
+ }
+  
   event.reply("openWindowDealed","dealed")
 })
 function createWindow () {
@@ -68,6 +75,7 @@ function createWindow () {
   //console.log(electron.screen.getAllDisplays())
   //const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize
   allScreens = electron.screen.getAllDisplays();
+  //console.log(allScreens)
   mainWindow = new BrowserWindow({
     width:800,
     height:600,
@@ -79,7 +87,8 @@ function createWindow () {
     autoHideMenuBar:true
   })
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  //mainWindow.loadFile('index.html')
+  mainWindow.loadFile('tempHtml/index.html')
   // mainWindow.loadURL(' http://127.0.0.1:7788')
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
