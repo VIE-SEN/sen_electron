@@ -43,7 +43,7 @@
 			"artifactName": "${productName}_setup_${version}.${ext}"
 		},
 		"win": {
-			"icon": "electron.jpg",
+			"icon": "",
 			"artifactName": "${productName}_setup_${version}.${ext}",
 			"target": [
 				"nsis",

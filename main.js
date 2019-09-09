@@ -23,7 +23,6 @@ ipcMain.on("openNewWindow",(event,args)=>{
     x:0,
     y:0,
     show:false,
-    icon:path.join(__dirname, "ico/dicom.ico"),
     autoHideMenuBar:false
   })
   openedWindow.on('closed', function () {
@@ -83,7 +82,6 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true
     },
-    icon:path.join(__dirname, "ico/mainico.ico"),
     autoHideMenuBar:true
   })
   // and load the index.html of the app.
